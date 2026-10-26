@@ -48,7 +48,7 @@
             id="adminPassword" 
             type="password" 
             required 
-            value="koraput2026"
+            value=""
             class="w-full text-sm p-3.5 pl-10 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-emerald-500 transition" 
             placeholder="Enter password"
           />
@@ -69,13 +69,14 @@
       </button>
 
       <div class="pt-2 text-center">
-        <button 
+        <!-- <button 
           type="button" 
           onclick="quickBypass()" 
           class="text-xs text-amber-700 hover:text-amber-800 font-semibold underline"
         >
           ⚡ 1-Click Quick Demo Access (District Officer Pass)
-        </button>
+        </button> 
+      -->
       </div>
     </form>
 
@@ -97,7 +98,7 @@
     });
 
     async function quickBypass() {
-      await doLogin('admin', 'koraput2026', true);
+      await doLogin('admin', 'korap', true);
     }
 
     async function doLogin(username, password, quick = false) {
@@ -115,7 +116,7 @@
           window.location.href = '/admin';
         } else {
           errBox.textContent = data.message || 'Invalid admin credentials.';
-          errBox.classList.remove('hidden');
+          
         }
       } catch (err) {
         errBox.textContent = 'Server connection error. Please ensure app is running.';
