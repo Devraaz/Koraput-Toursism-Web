@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Koraput Tourism | The Heaven of Odisha</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            koraput: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+              950: '#052e16',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- ============================================================
+       TOP NAVIGATION BAR
+       ============================================================ -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-18">
+        
+        <!-- Logo / Brand with Mascot Icon -->
+        <a href="#" class="flex items-center space-x-3">
+          <div class="w-11 h-11 rounded-2xl overflow-hidden border-2 border-emerald-600 shadow-md shrink-0">
+            <img src="/static/images/kora_avatar.jpg" alt="Kora Mascot" class="w-full h-full object-cover" />
+          </div>
+          <div>
+            <div class="flex items-center space-x-1.5">
+              <span class="text-lg font-extrabold tracking-tight text-gray-900 uppercase">Koraput</span>
+              <span class="text-xs font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">ODISHA</span>
+            </div>
+            <p class="text-[11px] font-medium text-emerald-700 tracking-wide">The Heaven of Odisha</p>
+          </div>
+        </a>
+
+        <!-- Navigation Links (Smooth scroll across homepage) -->
+        <nav class="hidden xl:flex items-center space-x-1 text-xs font-semibold text-gray-600">
+          <a href="#destinations" class="px-3 py-2 rounded-lg hover:text-emerald-800 hover:bg-emerald-50 transition">Destinations</a>
+          <a href="#coffee-trail" class="px-3 py-2 rounded-lg hover:text-emerald-800 hover:bg-emerald-50 transition flex items-center">
+            <span class="mr-1">☕</span> Coffee Trail
+          </a>
+          <a href="#culture-section" class="px-3 py-2 rounded-lg hover:text-emerald-800 hover:bg-emerald-50 transition flex items-center">
+            <span class="mr-1">🥁</span> Tribal Culture
+          </a>
+          <a href="#crafts-section" class="px-3 py-2 rounded-lg hover:text-emerald-800 hover:bg-emerald-50 transition flex items-center">
+            <span class="mr-1">🏺</span> Crafts & Cuisine
+          </a>
+          <a href="#stays-section" class="px-3 py-2 rounded-lg hover:text-emerald-800 hover:bg-emerald-50 transition flex items-center">
+            <span class="mr-1">🏨</span> Stays & Camps
+          </a>
+          <a href="#itineraries-section" class="px-3 py-2 rounded-lg hover:text-emerald-800 hover:bg-emerald-50 transition flex items-center">
+            <span class="mr-1">🗺️</span> Itineraries
+          </a>
+          <a href="#seasons-section" class="px-3 py-2 rounded-lg hover:text-emerald-800 hover:bg-emerald-50 transition">When to Visit</a>
+          <a href="#compare-section" class="px-3 py-2 rounded-lg text-amber-700 hover:bg-amber-50 transition font-bold">⚡ Refine Showcase</a>
+        </nav>
+
+        <!-- Right Controls: Audio + Ask Kora AI + Trip Bucket -->
+        <div class="flex items-center space-x-2.5">
+          <!-- Soundscape Button -->
+          <button id="btnToggleAudio" title="Play calming mist rain & forest breeze soundscape" class="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200 transition">
+            <span id="audioWaves" class="flex items-center">
+              <span class="audio-bar"></span>
+              <span class="audio-bar"></span>
+              <span class="audio-bar"></span>
+            </span>
+            <span id="audioLabel">Misty Ambiance</span>
+          </button>
+
+          <!-- Ask Kora AI Button -->
+          <button onclick="openKoraChatModal()" class="flex items-center space-x-2 bg-gradient-to-r from-emerald-800 to-emerald-700 hover:from-emerald-700 hover:to-emerald-600 text-white px-3.5 py-1.5 rounded-full text-xs font-bold shadow-md transition transform hover:scale-105">
+            <img src="/static/images/kora_avatar.jpg" class="w-5 h-5 rounded-full border border-amber-300 object-cover" />
+            <span>Ask Kora AI</span>
+          </button>
+
+          <!-- Trip Planner Bucket -->
+          <button id="btnTripDrawer" class="relative p-2 rounded-full bg-emerald-50 text-emerald-800 hover:bg-emerald-100 transition shadow-2xs">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+            </svg>
+            <span id="tripBadgeCount" class="hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center">0</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 space-y-16">
+
+    <!-- ============================================================
+         HERO SECTION WITH MASCOT SPOTLIGHT ("MEET KORA")
+         ============================================================ -->
+    <section class="relative hero-gradient text-white py-14 sm:py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Left Hero Copy (7 cols) -->
+        <div class="lg:col-span-7 space-y-4 text-center lg:text-left">
+          <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-medium text-emerald-200">
+            <span>✨ The Switzerland of the East</span>
+            <span>•</span>
+            <span>1,672m Altitude</span>
+            <span>•</span>
+            <span>GI-Tagged Arabica Coffee</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight font-serif leading-tight">
+            Welcome to <span class="text-emerald-400">Koraput</span>
+          </h1>
+          <p class="text-base sm:text-lg text-emerald-100/90 font-light leading-relaxed max-w-2xl">
+            Odisha’s highland jewel. Where rolling misty summits, thunderous tier waterfalls, sacred caves, and centuries of living tribal heritage embrace every traveler.
+          </p>
+
+          <!-- Search Bar with Live Filtering -->
+          <div class="pt-2 max-w-xl">
+            <div class="relative flex items-center">
+              <input 
+                id="searchInput" 
+                type="text" 
+                placeholder="Search Deomali, Duduma, Gupteswar, coffee, waterfalls..." 
+                class="w-full py-3.5 pl-12 pr-4 text-sm text-gray-900 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl outline-none focus:ring-2 focus:ring-emerald-500"
+              />
+              <div class="absolute left-4 text-gray-400">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Category Filter Chips -->
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-2">
+            <button data-category="all" class="active-cat px-3 py-1.5 rounded-full text-xs font-semibold bg-white/20 hover:bg-white/30 text-white backdrop-blur-md transition">
+              🌟 All Highlights
+            </button>
+            <button data-category="peak" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-white/25 text-white backdrop-blur-md transition">
+              🏔️ Peaks & Valleys
+            </button>
+            <button data-category="waterfall" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-white/25 text-white backdrop-blur-md transition">
+              🌊 Waterfalls
+            </button>
+            <button data-category="temple" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-white/25 text-white backdrop-blur-md transition">
+              🛕 Temples & Caves
+            </button>
+            <button data-category="waterbody" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-white/25 text-white backdrop-blur-md transition">
+              🚣 Lakes & Dams
+            </button>
+            <button data-category="coffee" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-white/25 text-white backdrop-blur-md transition">
+              ☕ Coffee Plantations
+            </button>
+            <button data-category="culture" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-white/25 text-white backdrop-blur-md transition">
+              🥁 Tribal Culture & Haats
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Official Mascot Card ("Meet Kora") -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="bg-gradient-to-b from-white/95 to-white/90 text-gray-900 rounded-3xl p-5 shadow-2xl border border-white/40 max-w-sm backdrop-blur-md">
+            <div class="relative rounded-2xl overflow-hidden mb-4 shadow-md h-72">
+              <img src="/static/images/kora_mascot.jpg" alt="Meet Kora - The Spirit of Koraput" class="w-full h-full object-cover object-top" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+              <div class="absolute bottom-3 left-3 text-white">
+                <span class="text-[10px] font-bold uppercase tracking-wider bg-amber-600 px-2 py-0.5 rounded">Official Mascot</span>
+                <h3 class="text-lg font-extrabold leading-tight">KORA — The Spirit of Koraput</h3>
+              </div>
+            </div>
+            
+            <p class="text-xs text-gray-600 leading-relaxed mb-3">
+              <em>"Your friendly guide to Nature, Culture & Adventure. Inspired by the land, language, and living traditions of Koraput."</em>
+            </p>
+
+            <div class="grid grid-cols-2 gap-2 text-[11px] text-emerald-950 font-semibold mb-3">
+              <div class="bg-emerald-50 p-1.5 rounded-lg border border-emerald-100 flex items-center">
+                <span class="mr-1">🏔️</span> Majestic Summits
+              </div>
+              <div class="bg-emerald-50 p-1.5 rounded-lg border border-emerald-100 flex items-center">
+                <span class="mr-1">🌊</span> Tier Waterfalls
+              </div>
+              <div class="bg-emerald-50 p-1.5 rounded-lg border border-emerald-100 flex items-center">
+                <span class="mr-1">☕</span> GI-Tagged Coffee
+              </div>
+              <div class="bg-emerald-50 p-1.5 rounded-lg border border-emerald-100 flex items-center">
+                <span class="mr-1">🥁</span> Living Tribal Lore
+              </div>
+            </div>
+
+            <button onclick="openKoraChatModal()" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2.5 rounded-xl text-xs transition flex items-center justify-center space-x-2 shadow-sm">
+              <span>💬 Ask Kora Anything About Koraput</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Stats Ribbon -->
+    <div class="bg-emerald-50/90 border-y border-emerald-100 py-3 px-4">
+      <div id="statsContainer" class="max-w-7xl mx-auto flex items-center justify-center"></div>
+    </div>
+
+    <!-- ============================================================
+         HOMEPAGE SECTION 1: DESTINATIONS & WATERFALLS (#destinations)
+         ============================================================ -->
+    <section id="destinations" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-700">Must-Visit Wonders</span>
+          <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">Marvels of Koraput</h2>
+          <p class="text-xs sm:text-sm text-gray-500 mt-1">
+            Scroll through multi-photo galleries in each card to explore peaks, waterfalls, caves, and scenic reservoirs.
+          </p>
+        </div>
+
+        <a href="#compare-section" class="inline-flex items-center text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-3.5 py-2 rounded-xl transition border border-emerald-200">
+          <span>⚡ View Raw vs Refined Story Showcase</span>
+          <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Places Grid (Multi-Image Cards) -->
+      <div id="placesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"></div>
+    </section>
+
+    <!-- ============================================================
+         HOMEPAGE SECTION 2: THE KORAPUT COFFEE TRAIL (#coffee-trail)
+         ============================================================ -->
+    <section id="coffee-trail" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-gradient-to-br from-amber-950 via-amber-900 to-amber-950 text-white rounded-3xl p-8 sm:p-12 shadow-xl border border-amber-800/40">
+        
+        <div class="max-w-3xl mb-8 space-y-2">
+          <span class="text-xs font-bold uppercase tracking-widest bg-amber-700/80 text-amber-200 px-3 py-1 rounded-full">
+            Odisha's Liquid Gold • GI-Tagged
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold font-serif">The Koraput Coffee Trail</h2>
+          <p class="text-xs sm:text-sm text-amber-100 leading-relaxed">
+            Cultivated organically at 3,000 feet elevation beneath towering silver oaks and jackfruit canopies. Today, over 3,000 indigenous tribal farm families cultivate 100% shade-grown Arabica coffee celebrated worldwide.
+          </p>
+        </div>
+
+        <!-- 4-Stage Coffee Harvest Story Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+          
+          <div class="bg-black/25 backdrop-blur-md rounded-2xl p-5 border border-white/10 flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-amber-600/40 text-amber-300 flex items-center justify-center font-bold text-lg mb-3">1</div>
+              <h4 class="font-bold text-sm text-white mb-1">Fragrant Blooms (March)</h4>
+              <p class="text-xs text-amber-200/80 leading-relaxed">
+                Highland hills turn white with fragrant coffee blossoms smelling like sweet mountain jasmine.
+              </p>
+            </div>
+            <div class="mt-4 h-24 rounded-xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover" />
+            </div>
+          </div>
+
+          <div class="bg-black/25 backdrop-blur-md rounded-2xl p-5 border border-white/10 flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-amber-600/40 text-amber-300 flex items-center justify-center font-bold text-lg mb-3">2</div>
+              <h4 class="font-bold text-sm text-white mb-1">Cherry Harvest (Nov - Jan)</h4>
+              <p class="text-xs text-amber-200/80 leading-relaxed">
+                Tribal women hand-pick glossy ruby-red Arabica cherries on cool mist-laden mornings.
+              </p>
+            </div>
+            <div class="mt-4 h-24 rounded-xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover" />
+            </div>
+          </div>
+
+          <div class="bg-black/25 backdrop-blur-md rounded-2xl p-5 border border-white/10 flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-amber-600/40 text-amber-300 flex items-center justify-center font-bold text-lg mb-3">3</div>
+              <h4 class="font-bold text-sm text-white mb-1">Sun-Drying & Pulping</h4>
+              <p class="text-xs text-amber-200/80 leading-relaxed">
+                Naturally dried under Eastern Ghats sun on raised beds to seal sweet notes of toasted almond & cocoa.
+              </p>
+            </div>
+            <div class="mt-4 h-24 rounded-xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover" />
+            </div>
+          </div>
+
+          <div class="bg-black/25 backdrop-blur-md rounded-2xl p-5 border border-white/10 flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-amber-600/40 text-amber-300 flex items-center justify-center font-bold text-lg mb-3">4</div>
+              <h4 class="font-bold text-sm text-white mb-1">Artisanal Pour-Over Cup</h4>
+              <p class="text-xs text-amber-200/80 leading-relaxed">
+                Savor fresh medium roasts at local coffee tasting cafes in town and take home GI-certified beans.
+              </p>
+            </div>
+            <div class="mt-4 h-24 rounded-xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover" />
+            </div>
+          </div>
+
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-between pt-4 border-t border-white/15 gap-4">
+          <div class="text-xs text-amber-200">
+            <strong>Where to visit:</strong> Coffee Board Research Center (Machkund Road) & Koraput Coffee Cafe (Town Center).
+          </div>
+          <button onclick="openKoraChatModal()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition">
+            Ask Kora About Coffee Tours & Cafes →
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         HOMEPAGE SECTION 3: LIVING TRIBAL CULTURE & DANCE (#culture-section)
+         ============================================================ -->
+    <section id="culture-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-800">Centuries of Indigenous Wisdom</span>
+          <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">Living Tribal Culture of Koraput</h2>
+          <p class="text-xs sm:text-sm text-gray-500 mt-1">
+            Home to over 62 distinct tribal communities living in sacred balance with forests, rivers, and the earth.
+          </p>
+        </div>
+      </div>
+
+      <!-- Culture Cards Grid (Admin-Managed) -->
+      <div id="cultureGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10"></div>
+
+      <!-- Cultural Photo Showcase -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="relative rounded-2xl overflow-hidden h-40 shadow-xs group gallery-card">
+          <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover gallery-zoom" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
+          <span class="absolute bottom-2.5 left-3 text-white text-xs font-bold">Dhemsa Folk Dance</span>
+        </div>
+        <div class="relative rounded-2xl overflow-hidden h-40 shadow-xs group gallery-card">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover gallery-zoom" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
+          <span class="absolute bottom-2.5 left-3 text-white text-xs font-bold">Kunduli Weekly Haat</span>
+        </div>
+        <div class="relative rounded-2xl overflow-hidden h-40 shadow-xs group gallery-card">
+          <img src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover gallery-zoom" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
+          <span class="absolute bottom-2.5 left-3 text-white text-xs font-bold">Gadaba & Bonda Regalia</span>
+        </div>
+        <div class="relative rounded-2xl overflow-hidden h-40 shadow-xs group gallery-card">
+          <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover gallery-zoom" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
+          <span class="absolute bottom-2.5 left-3 text-white text-xs font-bold">Parab Festival Torch</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         HOMEPAGE SECTION 4: FAMOUS HANDICRAFTS & TRIBAL CUISINE (#crafts-section)
+         ============================================================ -->
+    <section id="crafts-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-amber-800">Artisan Craftsmanship & Flavors</span>
+        <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">Famous Crafts & Tribal Gastronomy</h2>
+        <p class="text-xs sm:text-sm text-gray-500 mt-1">
+          From ancient organic vegetable dye textiles to nourishing millet beverages and earthware pottery.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Craft 1: Kotpad Weaves -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between">
+          <div>
+            <div class="h-44 rounded-2xl overflow-hidden mb-4">
+              <img src="https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover" />
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider bg-rose-50 text-rose-800 px-2 py-0.5 rounded">Odisha's 1st GI Tag</span>
+            <h3 class="text-lg font-bold text-gray-900 mt-1">Kotpad Organic Handloom</h3>
+            <p class="text-xs text-gray-600 mt-2 leading-relaxed">
+              Dyed using natural extracts from the roots of the Aal (Madder) tree by Mirgan weavers. Features motifs of crabs, birds, and tribal fish.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-100 text-[11px] text-emerald-800 font-semibold">
+            📍 Kotpad Town (65 km from Koraput)
+          </div>
+        </div>
+
+        <!-- Craft 2: Ghatgaon Terracotta -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between">
+          <div>
+            <div class="h-44 rounded-2xl overflow-hidden mb-4">
+              <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover" />
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider bg-amber-50 text-amber-800 px-2 py-0.5 rounded">Artisan Village</span>
+            <h3 class="text-lg font-bold text-gray-900 mt-1">Ghatgaon Terracotta</h3>
+            <p class="text-xs text-gray-600 mt-2 leading-relaxed">
+              Famous pottery hamlet where generations shape unglazed red clay into ornamental tiles, water pitchers, bells, and home decor.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-100 text-[11px] text-emerald-800 font-semibold">
+            📍 Ghatgaon Pottery Village
+          </div>
+        </div>
+
+        <!-- Food 1: Mandia Pej -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between">
+          <div>
+            <div class="h-44 rounded-2xl overflow-hidden mb-4">
+              <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover" />
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded">Traditional Superfood</span>
+            <h3 class="text-lg font-bold text-gray-900 mt-1">Mandia Pej (Ragi Porridge)</h3>
+            <p class="text-xs text-gray-600 mt-2 leading-relaxed">
+              Fermented finger-millet beverage enriched with cooked rice water. Wonderfully cooling and energizing for highland treks.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-100 text-[11px] text-emerald-800 font-semibold">
+            🌾 Served fresh at local weekly haats
+          </div>
+        </div>
+
+        <!-- Food 2: Bamboo Shoot Delicacies -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between">
+          <div>
+            <div class="h-44 rounded-2xl overflow-hidden mb-4">
+              <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover" />
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider bg-yellow-50 text-yellow-800 px-2 py-0.5 rounded">Forest Foraged</span>
+            <h3 class="text-lg font-bold text-gray-900 mt-1">Bamboo Shoot & Country Chicken</h3>
+            <p class="text-xs text-gray-600 mt-2 leading-relaxed">
+              Tender wild bamboo shoots (Karadi) stewed slowly with stone-ground mustard, garlic, and country chicken over woodfire.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-100 text-[11px] text-emerald-800 font-semibold">
+            🥘 Available in tribal dhabas & eco-camps
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         HOMEPAGE SECTION 5: STAYS & ECO-COTTAGES (#stays-section)
+         ============================================================ -->
+    <section id="stays-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-purple-800">Rest & Rejuvenation</span>
+          <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">Eco-Cottages, Camps & Homestays</h2>
+          <p class="text-xs sm:text-sm text-gray-500 mt-1">
+            Wake up to panoramic mountain sunrises, mist-kissed lakesides, and warm tribal hospitality. Managed directly by our tourism administration.
+          </p>
+        </div>
+      </div>
+
+      <!-- Hotels Grid (Multi-Image Cards) -->
+      <div id="hotelsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"></div>
+    </section>
+
+    <!-- ============================================================
+         HOMEPAGE SECTION 6: CURATED ITINERARIES (#itineraries-section)
+         ============================================================ -->
+    <section id="itineraries-section" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-8 text-center sm:text-left">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-800">Optimized Travel Routes</span>
+        <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">Handcrafted Day-by-Day Itineraries</h2>
+        <p class="text-xs sm:text-sm text-gray-500 mt-1">
+          Carefully timed itineraries taking you from sunrise cloud beds on Deomali to roaring waterfalls, sacred caves, and Friday tribal haats.
+        </p>
+      </div>
+
+      <div id="itinerariesList"></div>
+    </section>
+
+    <!-- ============================================================
+         HOMEPAGE SECTION 7: WHEN TO VISIT / SEASONS (#seasons-section)
+         ============================================================ -->
+    <section id="seasons-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-800">Climate & Seasonal Planner</span>
+        <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">When to Experience Koraput</h2>
+        <p class="text-xs sm:text-sm text-gray-500 mt-1">
+          Every season paints Koraput in a completely different, unforgettable palette.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Winter -->
+        <div class="bg-gradient-to-br from-emerald-900 to-emerald-950 text-white rounded-3xl p-7 shadow-sm border border-emerald-800 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-2xl">❄️</span>
+              <span class="text-[10px] font-bold uppercase bg-emerald-700/80 px-2.5 py-1 rounded-full text-emerald-200">Peak Season</span>
+            </div>
+            <h3 class="text-xl font-bold font-serif mb-1">Winter (Oct - Feb)</h3>
+            <p class="text-xs text-emerald-200 font-mono mb-3">Temperature: 8°C - 22°C • Crisp & Foggy</p>
+            <p class="text-xs text-emerald-100/90 leading-relaxed mb-4">
+              Best for watching the sunrise sea-of-clouds from Deomali summit. Coffee cherries turn bright red and the annual Parab cultural carnival takes place.
+            </p>
+          </div>
+          <div class="text-[11px] text-amber-300 font-semibold">
+            🧥 Packing tip: Warm fleece, thermal jackets, and trekking boots.
+          </div>
+        </div>
+
+        <!-- Monsoon -->
+        <div class="bg-gradient-to-br from-blue-900 to-slate-900 text-white rounded-3xl p-7 shadow-sm border border-blue-800 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-2xl">🌧️</span>
+              <span class="text-[10px] font-bold uppercase bg-blue-700/80 px-2.5 py-1 rounded-full text-blue-200">Lush & Roaring</span>
+            </div>
+            <h3 class="text-xl font-bold font-serif mb-1">Monsoon (July - Oct)</h3>
+            <p class="text-xs text-blue-200 font-mono mb-3">Temperature: 18°C - 26°C • Vibrant Greens</p>
+            <p class="text-xs text-blue-100/90 leading-relaxed mb-4">
+              Waterfalls like Duduma and Rani Duduma roar with peak water volume and throw dazzling rainbows. Putsil Valley meadows resemble lush Scottish highlands.
+            </p>
+          </div>
+          <div class="text-[11px] text-emerald-300 font-semibold">
+            ☔ Packing tip: Waterproof raincoats, umbrella, and non-slip sandals.
+          </div>
+        </div>
+
+        <!-- Spring -->
+        <div class="bg-gradient-to-br from-amber-900 to-stone-900 text-white rounded-3xl p-7 shadow-sm border border-amber-800 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-2xl">🌸</span>
+              <span class="text-[10px] font-bold uppercase bg-amber-700/80 px-2.5 py-1 rounded-full text-amber-200">Blossom Season</span>
+            </div>
+            <h3 class="text-xl font-bold font-serif mb-1">Spring (March - May)</h3>
+            <p class="text-xs text-amber-200 font-mono mb-3">Temperature: 20°C - 32°C • Aromatic Hills</p>
+            <p class="text-xs text-amber-100/90 leading-relaxed mb-4">
+              Arabica coffee plantations erupt into millions of fragrant white blossoms. Pleasant morning treks and evening boat cruises on Kolab lake.
+            </p>
+          </div>
+          <div class="text-[11px] text-amber-300 font-semibold">
+            🧢 Packing tip: Breathable cottons, sunglasses, and a sunhat.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         HOMEPAGE SECTION 8: RAW VS REFINED STORY SHOWCASE (#compare-section)
+         ============================================================ -->
+    <section id="compare-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-amber-700">Content Transformation Engine</span>
+        <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">Admin Raw Draft Notes vs. Refined Tourist Stories</h2>
+        <p class="text-xs sm:text-sm text-gray-600 mt-2 leading-relaxed">
+          The administrator enters rough, unformatted notes and bullet points. Our engine automatically transforms them into evocative, magazine-quality storytelling with highlights and travel tips for tourists.
+        </p>
+      </div>
+
+      <div id="compareShowcaseContainer"></div>
+    </section>
+
+    <!-- ============================================================
+         HOMEPAGE SECTION 9: INTERACTIVE KORA MASCOT BANNER
+         ============================================================ -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-gradient-to-r from-emerald-900 via-emerald-800 to-emerald-950 text-white rounded-3xl p-8 sm:p-12 shadow-xl flex flex-col md:flex-row items-center justify-between gap-8 border border-emerald-700/50">
+        
+        <div class="flex items-center space-x-6">
+          <img src="/static/images/kora_avatar.jpg" alt="Kora Mascot" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-amber-300 object-cover shadow-lg shrink-0" />
+          <div class="space-y-1">
+            <span class="text-xs font-bold uppercase tracking-widest text-amber-300">Your AI Highland Companion</span>
+            <h3 class="text-2xl sm:text-3xl font-extrabold font-serif">Have a Question About Koraput?</h3>
+            <p class="text-xs sm:text-sm text-emerald-200 max-w-xl">
+              Ask Kora about peak heights, waterfall trek difficulty, hotel prices, coffee plantation visits, or custom weekend plans!
+            </p>
+          </div>
+        </div>
+
+        <button onclick="openKoraChatModal()" class="bg-amber-500 hover:bg-amber-600 text-gray-900 font-extrabold px-7 py-4 rounded-2xl text-xs sm:text-sm transition shadow-lg shrink-0 transform hover:scale-105">
+          💬 Start Chatting with Kora AI
+        </button>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FLOATING "ASK KORA" AI BUTTON
+       ============================================================ -->
+  <div class="fixed bottom-6 right-6 z-40">
+    <button onclick="openKoraChatModal()" class="flex items-center space-x-3 bg-emerald-800 hover:bg-emerald-900 text-white pl-2 pr-5 py-2 rounded-full shadow-2xl border-2 border-amber-300 transition transform hover:scale-105 group">
+      <img src="/static/images/kora_avatar.jpg" alt="Kora" class="w-10 h-10 rounded-full border-2 border-white object-cover" />
+      <div class="text-left">
+        <div class="text-xs font-extrabold leading-none flex items-center">
+          <span>Ask Kora</span>
+          <span class="ml-1.5 w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        </div>
+        <div class="text-[10px] text-emerald-200">AI Tourism Guide</div>
+      </div>
+    </button>
+  </div>
+
+  <!-- ============================================================
+       "ASK KORA" AI CHAT MODAL
+       ============================================================ -->
+  <div id="koraChatModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+    <div class="bg-white rounded-3xl max-w-lg w-full h-[620px] shadow-2xl flex flex-col overflow-hidden border border-gray-100">
+      
+      <!-- Chat Header -->
+      <div class="bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-800 text-white p-4 flex items-center justify-between shadow-sm">
+        <div class="flex items-center space-x-3">
+          <div class="relative">
+            <img src="/static/images/kora_avatar.jpg" alt="Kora" class="w-11 h-11 rounded-full border-2 border-amber-300 object-cover shadow-sm" />
+            <span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 border-2 border-emerald-900"></span>
+          </div>
+          <div>
+            <h3 class="font-extrabold text-sm leading-tight">Kora — The Spirit of Koraput</h3>
+            <p class="text-[11px] text-emerald-300">Grounded on Live Tourism Database</p>
+          </div>
+        </div>
+        <button id="btnCloseKoraAi" class="w-8 h-8 rounded-full bg-black/20 hover:bg-black/40 text-white flex items-center justify-center text-sm">
+          ✕
+        </button>
+      </div>
+
+      <!-- Chat Messages Container -->
+      <div id="koraChatMessages" class="flex-1 p-4 overflow-y-auto bg-gray-50/70 space-y-3"></div>
+
+      <!-- Chat Input Form -->
+      <form id="koraChatForm" class="p-3 bg-white border-t border-gray-200 flex items-center space-x-2">
+        <input 
+          id="koraChatInput" 
+          type="text" 
+          placeholder="Ask Kora about Deomali, Duduma, hotels, coffee, culture..." 
+          class="flex-1 text-xs p-3 rounded-xl border border-gray-200 outline-none focus:border-emerald-500"
+          autocomplete="off"
+        />
+        <button type="submit" class="bg-emerald-800 hover:bg-emerald-900 text-white px-4 py-3 rounded-xl text-xs font-bold transition shadow-xs">
+          Send
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PLACE DETAIL MODAL
+       ============================================================ -->
+  <div id="detailsModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+    <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative">
+      <button id="modalCloseBtn" class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center transition">
+        ✕
+      </button>
+      <div id="modalDynamicContent"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TRIP PLANNER DRAWER
+       ============================================================ -->
+  <div id="tripDrawer" class="fixed top-0 right-0 h-full w-full sm:w-96 bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col justify-between border-l border-gray-100">
+    <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+      <div>
+        <h3 class="font-extrabold text-gray-900 text-lg">My Koraput Journey</h3>
+        <p class="text-xs text-gray-500">Custom travel bucket</p>
+      </div>
+      <button id="btnCloseTripDrawer" class="text-gray-400 hover:text-gray-600 font-bold p-1">✕</button>
+    </div>
+    <div id="tripDrawerItems" class="p-6 flex-1 overflow-y-auto"></div>
+  </div>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="bg-gray-950 text-white py-12 border-t border-gray-900 mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-sm">
+        <div>
+          <div class="flex items-center space-x-2 mb-3">
+            <img src="/static/images/kora_avatar.jpg" class="w-8 h-8 rounded-full border border-emerald-500 object-cover" />
+            <span class="font-extrabold text-base uppercase tracking-wider text-emerald-400">Koraput Tourism</span>
+          </div>
+          <p class="text-xs text-gray-400 leading-relaxed">
+            The Heaven of Odisha. Dedicated to promoting sustainable eco-tourism, celebrating indigenous tribal wisdom, and highlighting GI-tagged Koraput Arabica Coffee.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-bold text-xs uppercase tracking-wider text-emerald-400 mb-3">Signature Landmarks</h4>
+          <ul class="space-y-1.5 text-xs text-gray-400">
+            <li>Deomali Peak (1,672m)</li>
+            <li>Duduma Waterfall (175m)</li>
+            <li>Gupteswar Cave Sanctum</li>
+            <li>Kolab Dam & Reservoir</li>
+            <li>Sabara Srikhetra Jagannath</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xs uppercase tracking-wider text-emerald-400 mb-3">Heritage & Lore</h4>
+          <ul class="space-y-1.5 text-xs text-gray-400">
+            <li>GI-Tagged Koraput Coffee</li>
+            <li>Kunduli Weekly Tribal Market</li>
+            <li>Dhemsa Folk Dance Ensemble</li>
+            <li>Kotpad Natural Dye Weaves</li>
+            <li>Annual Parab Cultural Utsav</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xs uppercase tracking-wider text-emerald-400 mb-3">District Administration</h4>
+          <p class="text-xs text-gray-400 leading-relaxed mb-4">
+            Koraput District Tourism Office<br>
+            Near Sabara Srikhetra, Koraput, Odisha<br>
+            Helpline: 1800-208-1414
+          </p>
+          <a href="/admin/login" class="inline-flex items-center text-xs font-semibold text-emerald-400 hover:text-emerald-300 underline">
+            🔒 Official Admin Portal Access
+          </a>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-gray-900 text-center text-xs text-gray-500 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <span>© 2026 Koraput Tourism. Heaven of Odisha. Mascot: Kora.</span>
+        <a href="/admin/login" class="text-gray-500 hover:text-gray-400">Admin Sign In</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

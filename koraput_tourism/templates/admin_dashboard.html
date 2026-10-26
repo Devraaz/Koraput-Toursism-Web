@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Koraput Tourism Administration</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
+
+  <!-- Top Admin Nav -->
+  <header class="bg-emerald-950 text-white sticky top-0 z-40 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Brand -->
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">⚙️</span>
+          <div>
+            <h1 class="text-base font-extrabold tracking-tight uppercase">Koraput Tourism Admin</h1>
+            <p class="text-[10px] text-emerald-300">District Tourism Office • Heaven of Odisha</p>
+          </div>
+        </div>
+
+        <!-- Dashboard Navigation Pills -->
+        <div class="hidden md:flex items-center space-x-2 text-xs font-semibold">
+          <button onclick="switchAdminTab('places')" id="adminTabBtn-places" class="admin-nav-btn px-3.5 py-1.5 rounded-lg bg-emerald-800 text-white">
+            🏔️ Destinations & Peaks
+          </button>
+          <button onclick="switchAdminTab('hotels')" id="adminTabBtn-hotels" class="admin-nav-btn px-3.5 py-1.5 rounded-lg text-emerald-200 hover:bg-emerald-900">
+            🏨 Stays & Eco-Cottages
+          </button>
+          <button onclick="switchAdminTab('culture')" id="adminTabBtn-culture" class="admin-nav-btn px-3.5 py-1.5 rounded-lg text-emerald-200 hover:bg-emerald-900">
+            ☕ Culture, Coffee & Famous Things
+          </button>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex items-center space-x-3 text-xs">
+          <a href="/" target="_blank" class="px-3 py-1.5 rounded-lg bg-emerald-900 hover:bg-emerald-800 text-emerald-200 flex items-center">
+            <span>Public Site</span>
+            <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+          <button onclick="adminLogout()" class="px-3 py-1.5 rounded-lg bg-rose-900 hover:bg-rose-800 text-white font-semibold">
+            Logout
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Sub-Nav -->
+  <div class="md:hidden bg-emerald-900 text-white px-4 py-2 flex items-center justify-between text-xs overflow-x-auto gap-2">
+    <button onclick="switchAdminTab('places')" class="whitespace-nowrap px-2.5 py-1 rounded bg-emerald-800">🏔️ Places</button>
+    <button onclick="switchAdminTab('hotels')" class="whitespace-nowrap px-2.5 py-1 rounded hover:bg-emerald-800">🏨 Stays</button>
+    <button onclick="switchAdminTab('culture')" class="whitespace-nowrap px-2.5 py-1 rounded hover:bg-emerald-800">☕ Culture & Coffee</button>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+
+    <!-- ============================================================
+         PANEL 1: DESTINATIONS & WATERFALLS
+         ============================================================ -->
+    <div id="panel-places" class="admin-panel space-y-8">
+      
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <div class="mb-6">
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full">Destinations Management</span>
+          <h2 class="text-2xl font-bold text-gray-900 mt-1">Add New Koraput Destination (With Multiple Images & AI Refinement)</h2>
+          <p class="text-xs text-gray-500 mt-1">Enter rough notes. Our engine will weave an evocative tourist story, curating highlights and travel tips automatically.</p>
+        </div>
+
+        <form id="formAddPlace" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Form Inputs (7 cols) -->
+          <div class="lg:col-span-7 space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Destination Name *</label>
+                <input id="placeName" type="text" required placeholder="e.g. Pine Forest Valley" class="w-full text-xs p-3 rounded-xl border border-gray-200 outline-none focus:border-emerald-500" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Category *</label>
+                <select id="placeCategory" class="w-full text-xs p-3 rounded-xl border border-gray-200 outline-none focus:border-emerald-500">
+                  <option value="peak">🏔️ Peak / Valley / Summit</option>
+                  <option value="waterfall">🌊 Waterfall / Rapids</option>
+                  <option value="temple">🛕 Temple / Cave Sanctum</option>
+                  <option value="waterbody">🚣 Lake / Dam / Reservoir / Pond</option>
+                  <option value="coffee">☕ Coffee Plantation</option>
+                  <option value="culture">🥁 Tribal Haat & Culture</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Location / Tehsil</label>
+                <input id="placeLocation" type="text" placeholder="e.g. Machkund Road, Koraput" class="w-full text-xs p-3 rounded-xl border border-gray-200 outline-none focus:border-emerald-500" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Distance from Koraput</label>
+                <input id="placeDistance" type="text" placeholder="e.g. 35 km (approx. 50 mins)" class="w-full text-xs p-3 rounded-xl border border-gray-200 outline-none focus:border-emerald-500" />
+              </div>
+            </div>
+
+            <!-- Multiple Image Links (Requirement 2) -->
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label class="block text-xs font-semibold text-gray-700">Multiple Image Links * (One URL per line)</label>
+                <button type="button" onclick="insertSamplePlaceImages()" class="text-[11px] text-emerald-700 hover:underline">
+                  + Add Sample Image Links
+                </button>
+              </div>
+              <textarea id="placeImageUrls" rows="3" required placeholder="https://images.unsplash.com/photo-1506744038136-46273834b3fb...&#10;https://images.unsplash.com/photo-1464822759023-fed622ff2c3b...&#10;https://images.unsplash.com/photo-1519681393784-d120267933ba..." class="w-full text-xs p-3 rounded-xl border border-gray-200 font-mono outline-none focus:border-emerald-500"></textarea>
+              <p class="text-[11px] text-gray-400 mt-0.5">These images will scroll inside the card on the public website!</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Entry Fee</label>
+                <input id="placeEntryFee" type="text" placeholder="e.g. ₹20 per head" class="w-full text-xs p-3 rounded-xl border border-gray-200 outline-none" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Visiting Hours</label>
+                <input id="placeTiming" type="text" placeholder="e.g. 06:00 AM - 06:00 PM" class="w-full text-xs p-3 rounded-xl border border-gray-200 outline-none" />
+              </div>
+            </div>
+
+            <!-- Raw Notes -->
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Admin Raw Draft Notes *</label>
+              <textarea id="placeRawContent" rows="4" required placeholder="Jot down bullet points, elevation, warnings, timings, route details... No need for fancy writing; AI will polish it!" class="w-full text-xs p-3 rounded-xl border border-gray-200 font-mono outline-none"></textarea>
+            </div>
+
+            <div class="flex items-center space-x-3 pt-2">
+              <button type="button" onclick="triggerRefineForPlace()" class="flex-1 bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-xl text-xs transition flex items-center justify-center">
+                <span>⚡ Auto-Refine with AI (Preview)</span>
+              </button>
+              <button type="submit" class="flex-1 bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-3 rounded-xl text-xs transition">
+                Publish Destination
+              </button>
+            </div>
+          </div>
+
+          <!-- AI Refine Preview (5 cols) -->
+          <div class="lg:col-span-5 bg-emerald-50/70 p-6 rounded-2xl border border-emerald-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between pb-3 mb-3 border-b border-emerald-200">
+                <span class="text-xs font-bold text-emerald-900 uppercase">AI Refined Tourist Story Preview</span>
+                <span class="text-[10px] bg-emerald-600 text-white px-2 py-0.5 rounded-full">Tourist-Ready</span>
+              </div>
+              <div id="placeRefinePreviewContent" class="text-xs text-gray-600 space-y-3">
+                <p class="italic text-gray-500">Fill out raw notes on the left and click "Auto-Refine with AI" to preview the refined title, narrative story, highlights, and travel tips.</p>
+              </div>
+            </div>
+            <div class="pt-4 border-t border-emerald-200/60 text-[11px] text-emerald-800 font-medium">
+              💡 The tourist will see this polished version while enjoying your multi-image gallery scroll.
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Current Places Table -->
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+          <h3 class="font-bold text-gray-900 text-base">Published Koraput Destinations</h3>
+          <span id="placesTableCount" class="text-xs text-gray-500"></span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-gray-50 text-[11px] font-bold text-gray-500 uppercase border-b border-gray-100">
+              <tr>
+                <th class="py-3 px-4">Images</th>
+                <th class="py-3 px-4">Destination</th>
+                <th class="py-3 px-4">Category</th>
+                <th class="py-3 px-4">Location</th>
+                <th class="py-3 px-4">Refined Story Preview</th>
+                <th class="py-3 px-4 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="placesTableBody" class="divide-y divide-gray-100">
+              <!-- Injected via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ============================================================
+         PANEL 2: DEDICATED STAYS & HOTELS MANAGEMENT (Requirement 4)
+         ============================================================ -->
+    <div id="panel-hotels" class="admin-panel hidden space-y-8">
+      
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <div class="mb-6">
+          <span class="text-xs font-bold uppercase tracking-wider text-purple-800 bg-purple-100 px-2.5 py-0.5 rounded-full">Hospitality Management</span>
+          <h2 class="text-2xl font-bold text-gray-900 mt-1">Dedicated Stays & Eco-Cottages Manager</h2>
+          <p class="text-xs text-gray-500 mt-1">Add eco-cottages, nature camps, boutique homestays, or hotels with multiple photo links and AI stay stories.</p>
+        </div>
+
+        <form id="formAddHotel" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Inputs (7 cols) -->
+          <div class="lg:col-span-7 space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Stay / Hotel Name *</label>
+                <input id="hotelName" type="text" required placeholder="e.g. Deomali Mist View Tents" class="w-full text-xs p-3 rounded-xl border border-gray-200 outline-none focus:border-purple-500" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Stay Category *</label>
+                <select id="hotelCategory" class="w-full text-xs p-3 rounded-xl border border-gray-200 outline-none focus:border-purple-500">
+                  <option value="eco_resort">🌿 Eco Resort & Nature Cottages</option>
+                  <option value="nature_camp">⛺ Lakeside / Hilltop Nature Camp</option>
+                  <option value="homestay">🏡 Tribal Heritage Homestay</option>
+                  <option value="luxury">✨ Town Luxury Hotel</option>
+                  <option value="budget">🏨 Standard Tourist Lodge</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Location / Landmark *</label>
+                <input id="hotelLocation" type="text" required placeholder="e.g. Kolab Lake Promenade" class="w-full text-xs p-3 rounded-xl border border-gray-200 outline-none" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Distance from Koraput Town</label>
+                <input id="hotelDistance" type="text" placeholder="e.g. 15 km from town" class="w-full text-xs p-3 rounded-xl border border-gray-200 outline-none" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Price Range per Night *</label>
+                <input id="hotelPrice" type="text" required placeholder="e.g. ₹2,500 - ₹4,000 / night" class="w-full text-xs p-3 rounded-xl border border-gray-200 outline-none" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Contact Phone / Email *</label>
+                <input id="hotelContact" type="text" required placeholder="e.g. +91 94370 12345" class="w-full text-xs p-3 rounded-xl border border-gray-200 outline-none" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Official Booking Website Link</label>
+              <input id="hotelBookingUrl" type="url" placeholder="https://www.ecotourodisha.com" class="w-full text-xs p-3 rounded-xl border border-gray-200 outline-none" />
+            </div>
+
+            <!-- Multiple Hotel Image Links (Requirement 2) -->
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label class="block text-xs font-semibold text-gray-700">Multiple Hotel Image Links * (One per line)</label>
+                <button type="button" onclick="insertSampleHotelImages()" class="text-[11px] text-purple-700 hover:underline">
+                  + Add Sample Hotel Photos
+                </button>
+              </div>
+              <textarea id="hotelImageUrls" rows="3" required placeholder="https://images.unsplash.com/photo-1566073771259-6a8506099945...&#10;https://images.unsplash.com/photo-1520250497591-112f2f40a3f4...&#10;https://images.unsplash.com/photo-1582719478250-c89cae4dc85b..." class="w-full text-xs p-3 rounded-xl border border-gray-200 font-mono outline-none focus:border-purple-500"></textarea>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Amenities (Comma separated)</label>
+              <input id="hotelAmenities" type="text" value="Mountain View Balcony, Tribal Dining, Bonfire Nights, Wi-Fi, Guided Treks" class="w-full text-xs p-3 rounded-xl border border-gray-200 outline-none" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Admin Raw Stay Notes *</label>
+              <textarea id="hotelRawContent" rows="3" required placeholder="e.g. wooden cottages with direct sunrise view of deomali peaks. complimentary tribal village breakfast and dinner. bonfire arranged. online booking on eco odisha portal." class="w-full text-xs p-3 rounded-xl border border-gray-200 font-mono outline-none"></textarea>
+            </div>
+
+            <div class="flex items-center space-x-3 pt-2">
+              <button type="button" onclick="triggerRefineForHotel()" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-xl text-xs transition">
+                ⚡ Auto-Refine Stay Story
+              </button>
+              <button type="submit" class="flex-1 bg-purple-900 hover:bg-purple-950 text-white font-bold py-3 rounded-xl text-xs transition">
+                Publish Stay Listing
+              </button>
+            </div>
+          </div>
+
+          <!-- Preview (5 cols) -->
+          <div class="lg:col-span-5 bg-purple-50/70 p-6 rounded-2xl border border-purple-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between pb-3 mb-3 border-b border-purple-200">
+                <span class="text-xs font-bold text-purple-950 uppercase">Refined Hospitality Story</span>
+                <span class="text-[10px] bg-purple-700 text-white px-2 py-0.5 rounded-full">Tourist-Facing</span>
+              </div>
+              <div id="hotelRefinePreviewContent" class="text-xs text-gray-600 space-y-3">
+                <p class="italic text-gray-500">Fill in the stay details and click "Auto-Refine Stay Story" to preview the refined hotel presentation.</p>
+              </div>
+            </div>
+            <div class="pt-4 border-t border-purple-200/60 text-[11px] text-purple-900 font-medium">
+              🏨 Tourists can directly book or contact the stay from their portal.
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Current Hotels Table -->
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+          <h3 class="font-bold text-gray-900 text-base">Published Eco-Cottages & Hotels</h3>
+          <span id="hotelsTableCount" class="text-xs text-gray-500"></span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-gray-50 text-[11px] font-bold text-gray-500 uppercase border-b border-gray-100">
+              <tr>
+                <th class="py-3 px-4">Photos</th>
+                <th class="py-3 px-4">Stay Name</th>
+                <th class="py-3 px-4">Type</th>
+                <th class="py-3 px-4">Price</th>
+                <th class="py-3 px-4">Contact</th>
+                <th class="py-3 px-4 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="hotelsTableBody" class="divide-y divide-gray-100">
+              <!-- Injected via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ============================================================
+         PANEL 3: CULTURE, COFFEE & FAMOUS THINGS (Requirement 5)
+         ============================================================ -->
+    <div id="panel-culture" class="admin-panel hidden space-y-8">
+      
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <div class="mb-6">
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full">Heritage & Lore Manager</span>
+          <h2 class="text-2xl font-bold text-gray-900 mt-1">Manage Culture, Koraput Coffee & Famous Things</h2>
+          <p class="text-xs text-gray-500 mt-1">Publish stories on tribal traditions, coffee harvests, handicrafts, local cuisine, and festivals displayed on the homepage.</p>
+        </div>
+
+        <form id="formAddCulture" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div class="lg:col-span-7 space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Story Title *</label>
+                <input id="cultureTitle" type="text" required placeholder="e.g. The Craft of Kotpad Natural Dye" class="w-full text-xs p-3 rounded-xl border border-gray-200 outline-none" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Category *</label>
+                <select id="cultureCategory" class="w-full text-xs p-3 rounded-xl border border-gray-200 outline-none">
+                  <option value="koraput_coffee">☕ Koraput Coffee Saga</option>
+                  <option value="tribal_heritage">🌿 Indigenous Tribal Heritage</option>
+                  <option value="dance_music">🥁 Dhemsa Dance & Folk Music</option>
+                  <option value="handicrafts_cuisine">🏺 Famous Crafts, Terracotta & Food</option>
+                  <option value="festivals">🎉 Parab Festival & Celebrations</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Multiple Image Links -->
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Image URLs (One per line)</label>
+              <textarea id="cultureImageUrls" rows="3" required placeholder="https://images.unsplash.com/photo-1540555700478-4be289fbecef...&#10;https://images.unsplash.com/photo-1555396273-367ea4eb4db5..." class="w-full text-xs p-3 rounded-xl border border-gray-200 font-mono outline-none"></textarea>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Admin Raw Draft Notes *</label>
+              <textarea id="cultureRawNotes" rows="4" required placeholder="Jot down tribal lore, harvest stories, ingredients, cultural nuances..." class="w-full text-xs p-3 rounded-xl border border-gray-200 font-mono outline-none"></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-amber-700 hover:bg-amber-800 text-white font-bold py-3 rounded-xl text-xs transition">
+              ⚡ Refine & Publish Cultural Story to Homepage
+            </button>
+          </div>
+
+          <!-- Preview -->
+          <div class="lg:col-span-5 bg-amber-50/70 p-6 rounded-2xl border border-amber-200 flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-bold text-amber-900 uppercase">Homepage Content Management</span>
+              <p class="text-xs text-gray-600 mt-2 leading-relaxed">
+                Everything you publish here immediately populates the <strong>"Culture, Coffee & Famous Traditions"</strong> section on the public homepage.
+              </p>
+              <div class="mt-4 p-3 bg-white/80 rounded-xl border border-amber-200 text-xs text-amber-800 space-y-1">
+                <div>✓ Auto-generates highlights</div>
+                <div>✓ Multi-image gallery support</div>
+                <div>✓ Real-time integration with Kora AI assistant</div>
+              </div>
+            </div>
+            <div class="pt-4 border-t border-amber-200/60 text-[11px] text-amber-900">
+              Kora uses these cultural records to answer tourist inquiries!
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Current Culture Table -->
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+          <h3 class="font-bold text-gray-900 text-base">Published Cultural Articles & Coffee Stories</h3>
+          <span id="cultureTableCount" class="text-xs text-gray-500"></span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-gray-50 text-[11px] font-bold text-gray-500 uppercase border-b border-gray-100">
+              <tr>
+                <th class="py-3 px-4">Image</th>
+                <th class="py-3 px-4">Title</th>
+                <th class="py-3 px-4">Category</th>
+                <th class="py-3 px-4">Article Excerpt</th>
+                <th class="py-3 px-4 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="cultureTableBody" class="divide-y divide-gray-100">
+              <!-- Injected via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="/static/js/admin_dashboard.js"></script>
+</body>
+</html>
