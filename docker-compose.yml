@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  koraput-tourism:
+    build: .
+    container_name: koraput_tourism_app
+    ports:
+      - "8080:8080"
+    volumes:
+      # Persist SQLite database so admin updates survive container rebuilds
+      - ./koraput_tourism/koraput_tourism.db:/app/koraput_tourism/koraput_tourism.db
+    environment:
+      - PORT=8080
+    restart: unless-stopped

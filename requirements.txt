@@ -1,0 +1,4 @@
+# Koraput Tourism Application - Python Dependencies
+# Lightweight, high-performance web server & image utilities
+tornado>=6.4.0
+pillow>=10.0.0
